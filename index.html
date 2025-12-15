@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>THE LOFT HUB | Staff Dashboard</title>
+
+<style>
+body{
+  font-family:'Montserrat',Arial,sans-serif;
+  background:#020617;
+  color:white;
+  margin:0;
+}
+header{
+  padding:20px;
+  text-align:center;
+  background:#000;
+}
+.container{
+  padding:20px;
+}
+.card{
+  background:#0f172a;
+  border-left:6px solid #ff4d4d;
+  padding:15px;
+  margin-bottom:15px;
+  border-radius:12px;
+}
+textarea{
+  width:100%;
+  margin-top:10px;
+  padding:8px;
+  border-radius:6px;
+  border:none;
+}
+button{
+  margin-top:10px;
+  padding:8px 18px;
+  border:none;
+  border-radius:20px;
+  font-weight:600;
+  cursor:pointer;
+}
+.approve{background:#22c55e;color:#000;}
+.reject{background:#ef4444;color:white;}
+.timestamp{
+  margin-top:6px;
+  font-size:13px;
+  color:#cbd5f5;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h2>THE LOFT HUB – Staff Booking Management</h2>
+</header>
+
+<div class="container" id="list"></div>
+
+<script type="module">
+/* 🔹 Firebase imports (MODULAR SDK) */
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+import {
+  getFirestore,
+  collection,
+  onSnapshot,
+  doc,
+  updateDoc
+} from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+
+/* 🔹 SAME Firebase config as public.html */
+const firebaseConfig = {
+  apiKey: "AIzaSyCHzOsZpSWN7fwEXALbPzPsknjROPp5Bf4",
+  authDomain: "the-loft-hub.firebaseapp.com",
+  projectId: "the-loft-hub",
+  storageBucket: "the-loft-hub.firebasestorage.app",
+  messagingSenderId: "720306031954",
+  appId: "1:720306031954:web:1f242a6e1531fe58587e8b"
+};
+
+/* 🔹 Initialize Firebase */
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+/* 🔹 DOM reference (required in ES modules) */
+const list = document.getElementById("list");
+
+/* 🔹 Real-time listener */
+onSnapshot(collection(db, "bookings"), snap => {
+  list.innerHTML = "";
+
+  snap.forEach(docSnap => {
+    const b = docSnap.data();
+
+    const requestedTime = b.createdAt
+      ? b.createdAt.toDate().toLocaleString()
+      : "Loading...";
+
+    list.innerHTML += `
+      <div class="card">
+        <b>${b.name}</b> | ${b.eventType}<br>
+        📅 Event Date: ${b.date} | 👥 Guests: ${b.guests}<br>
+        📌 Status: <b>${b.status}</b>
+
+        <div class="timestamp">
+          🕒 Requested On: ${requestedTime}
+        </div>
+
+        <textarea id="note-${docSnap.id}"
+          placeholder="Internal Staff Notes">${b.staffNotes || ""}</textarea>
+
+        <button class="approve"
+          onclick="updateStatus('${docSnap.id}','Approved')">
+          Approve
+        </button>
+
+        <button class="reject"
+          onclick="updateStatus('${docSnap.id}','Rejected')">
+          Reject
+        </button>
+      </div>
+    `;
+  });
+});
+
+/* 🔹 Update status + notes */
+window.updateStatus = async (id, status) => {
+  await updateDoc(doc(db, "bookings", id), {
+    status: status,
+    staffNotes: document.getElementById(`note-${id}`).value
+  });
+};
+</script>
+
+</body>
+</html>
