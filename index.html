@@ -3,132 +3,196 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>THE LOFT HUB | Staff Management</title>
+<title>THE LOFT HUB | Professional Staff Portal</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
 
 body {
   font-family: 'Montserrat', sans-serif;
-  background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #4a1942);
-  background-size: 400% 400%;
-  animation: gradientBG 15s ease infinite;
+  background: radial-gradient(circle at top left, #1a1a2e, #16213e, #0f0c29);
+  background-attachment: fixed;
   min-height: 100vh;
   color: white;
   margin: 0;
   padding: 20px;
+  overflow-x: hidden;
 }
 
-@keyframes gradientBG {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* --- LOGIN OVERLAY --- */
+/* --- AESTHETIC LOGIN OVERLAY --- */
 #loginOverlay {
   position: fixed;
   top: 0; left: 0; width: 100%; height: 100%;
   display: flex; align-items: center; justify-content: center;
-  z-index: 2000;
-  background: inherit;
+  z-index: 9999;
+  background: rgba(10, 10, 20, 0.95);
+  backdrop-filter: blur(10px);
 }
 
 .login-card {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(25px);
-  -webkit-backdrop-filter: blur(25px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 40px; width: 90%; max-width: 380px;
-  border-radius: 24px; text-align: center;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 50px 40px;
+  width: 100%;
+  max-width: 420px;
+  border-radius: 30px;
+  text-align: center;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+.login-card h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  letter-spacing: 4px;
+  margin-bottom: 5px;
+  background: linear-gradient(to right, #fff, #a5a5a5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.login-card p {
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin-bottom: 35px;
+}
+
+.input-group {
+  position: relative;
+  margin-bottom: 20px;
 }
 
 .login-card input {
-  width: 100%; padding: 15px; margin-bottom: 15px;
-  border-radius: 12px; border: none; outline: none;
-  background: white; color: #333; box-sizing: border-box;
+  width: 100%;
+  padding: 18px 20px;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.2);
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  box-sizing: border-box;
+  transition: 0.3s;
+  outline: none;
+}
+
+.login-card input:focus {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
 }
 
 .login-card button {
-  width: 100%; padding: 15px; border: none; border-radius: 30px;
-  background: linear-gradient(135deg, #ff416c, #ff4b2b);
-  color: white; font-weight: 700; cursor: pointer; text-transform: uppercase;
-}
-
-/* --- STAFF CONTENT --- */
-#staffContent { display: none; }
-
-header { text-align: center; margin-bottom: 30px; }
-header h2 { letter-spacing: 4px; text-transform: uppercase; }
-
-/* Grid Layout for Status Columns */
-.status-columns {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-@media (max-width: 1024px) {
-  .status-columns { grid-template-columns: 1fr; }
-}
-
-.column {
-  background: rgba(0, 0, 0, 0.2);
-  padding: 15px;
-  border-radius: 20px;
-  min-height: 400px;
-}
-
-.column-header {
-  text-align: center;
-  padding: 10px;
-  margin-bottom: 15px;
+  width: 100%;
+  padding: 18px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 15px;
+  background: #ffffff;
+  color: #000;
   font-weight: 700;
+  cursor: pointer;
   text-transform: uppercase;
   letter-spacing: 2px;
-  border-radius: 10px;
+  font-size: 12px;
+  transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.head-pending { background: rgba(250, 204, 21, 0.2); color: #facc15; }
-.head-approved { background: rgba(0, 255, 204, 0.2); color: #00ffcc; }
-.head-rejected { background: rgba(255, 77, 77, 0.2); color: #ff4d4d; }
+.login-card button:hover {
+  transform: scale(1.02);
+  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+}
 
-/* Booking Card */
-.card {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 15px;
-  margin-bottom: 15px;
-  border-radius: 15px;
+/* --- DASHBOARD STYLES --- */
+#staffContent { display: none; max-width: 1400px; margin: 0 auto; animation: fadeIn 1s ease; }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+header h2 {
+  font-family: 'Playfair Display', serif;
+  text-align: center;
+  font-size: 36px;
+  margin-top: 40px;
+  letter-spacing: 2px;
+}
+
+.workflow-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  margin-top: 40px;
+}
+
+@media (max-width: 1100px) { .workflow-container { grid-template-columns: 1fr; } }
+
+.column {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 25px;
+  padding: 20px;
+  min-height: 70vh;
+}
+
+.col-title {
+  text-align: left;
+  font-weight: 600;
+  padding: 0 0 15px 10px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
   font-size: 13px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.card-header { font-weight: 700; font-size: 16px; margin-bottom: 10px; display: flex; justify-content: space-between; }
-.event-tag { font-size: 10px; opacity: 0.6; text-transform: uppercase; }
+.dot { height: 8px; width: 8px; border-radius: 50%; display: inline-block; margin-right: 10px; }
+.dot-pen { background: #facc15; }
+.dot-app { background: #00ffcc; }
+.dot-rej { background: #ff4d4d; }
+
+/* CARDS */
+.card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 20px;
+  transition: 0.3s;
+}
+
+.card:hover { background: rgba(255, 255, 255, 0.06); border-color: rgba(255, 255, 255, 0.2); }
+
+.card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
+.card-top h4 { margin: 0; font-size: 18px; font-weight: 600; }
+
+.info-row { font-size: 12px; opacity: 0.7; margin-bottom: 5px; display: flex; align-items: center; gap: 8px; }
 
 textarea {
-  width: 100%; background: rgba(0, 0, 0, 0.3); color: white;
-  margin-top: 10px; padding: 8px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);
-  font-family: inherit; font-size: 12px; resize: none;
+  width: 100%; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.05);
+  color: #fff; border-radius: 12px; margin: 15px 0; padding: 12px; font-family: inherit; font-size: 12px; resize: none; outline: none; box-sizing: border-box;
 }
 
-.actions { display: flex; gap: 5px; margin-top: 10px; }
-.btn-action {
-  flex: 1; padding: 8px; border: none; border-radius: 20px;
-  font-weight: 700; font-size: 10px; cursor: pointer; text-transform: uppercase;
-}
+.btn-row { display: flex; gap: 10px; }
+.btn-s { flex: 1; border: none; padding: 12px; border-radius: 12px; cursor: pointer; font-weight: 700; font-size: 10px; text-transform: uppercase; transition: 0.3s; }
 
-.approve { background: #00ffcc; color: #000; }
-.reject { background: #ff4d4d; color: white; }
+.b-app { background: rgba(0, 255, 204, 0.1); color: #00ffcc; border: 1px solid #00ffcc; }
+.b-rej { background: rgba(255, 77, 77, 0.1); color: #ff4d4d; border: 1px solid #ff4d4d; }
+.b-pen { background: rgba(255, 255, 255, 0.05); color: #fff; border: 1px solid rgba(255, 255, 255, 0.2); }
 
-.nav-bar { text-align: center; margin-top: 40px; display: flex; justify-content: center; gap: 15px; padding-bottom: 50px;}
-.btn-nav {
-    background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2);
-    padding: 10px 20px; border-radius: 25px; cursor: pointer; font-size: 12px; text-decoration: none;
-}
+.b-app:hover { background: #00ffcc; color: #000; }
+.b-rej:hover { background: #ff4d4d; color: #fff; }
+
+.nav-footer { text-align: center; margin: 60px 0; }
+.btn-nav { text-decoration: none; color: white; opacity: 0.6; font-size: 12px; margin: 0 20px; transition: 0.3s; }
+.btn-nav:hover { opacity: 1; letter-spacing: 1px; }
 </style>
 </head>
 
@@ -136,41 +200,45 @@ textarea {
 
 <div id="loginOverlay">
   <div class="login-card">
-    <h1>Staff Portal</h1>
-    <input type="text" id="adminID" placeholder="Staff ID">
-    <input type="password" id="adminPass" placeholder="Password">
-    <button onclick="handleLogin()">Unlock Access</button>
-    <p id="errorMsg" style="color:#ff4d4d; font-size:12px; margin-top:15px;"></p>
+    <h1>The Loft Hub</h1>
+    <p>Administrative Access</p>
+    
+    <div class="input-group">
+        <input type="text" id="adminID" placeholder="Email Address">
+    </div>
+    <div class="input-group">
+        <input type="password" id="adminPass" placeholder="Security Password">
+    </div>
+    
+    <button onclick="handleLogin()">Authorize Entry</button>
+    <p id="errorMsg" style="color:#ff4d4d; font-size:11px; margin-top:20px; opacity: 1; letter-spacing: 1px;"></p>
   </div>
 </div>
 
 <div id="staffContent">
-    <header>
-      <h2>THE LOFT HUB</h2>
-      <div style="opacity:0.6; font-size:12px;">Booking Workflow Management</div>
-    </header>
+  <header>
+    <h2>Workflow Management</h2>
+  </header>
 
-    <div class="status-columns">
-        <div class="column">
-            <div class="column-header head-pending">Pending</div>
-            <div id="list-pending"></div>
-        </div>
-
-        <div class="column">
-            <div class="column-header head-approved">Approved</div>
-            <div id="list-approved"></div>
-        </div>
-
-        <div class="column">
-            <div class="column-header head-rejected">Rejected</div>
-            <div id="list-rejected"></div>
-        </div>
+  <div class="workflow-container">
+    <div class="column">
+      <div class="col-title"><span class="dot dot-pen"></span>Pending Requests</div>
+      <div id="pen-list"></div>
     </div>
-
-    <div class="nav-bar">
-        <a href="https://harikrishnan-06.github.io/loft-insight/insights.html" class="btn-nav">View Insights</a>
-        <button onclick="location.reload()" class="btn-nav">Logout</button>
+    <div class="column">
+      <div class="col-title"><span class="dot dot-app"></span>Approved Bookings</div>
+      <div id="app-list"></div>
     </div>
+    <div class="column">
+      <div class="col-title"><span class="dot dot-rej"></span>Rejected Archive</div>
+      <div id="rej-list"></div>
+    </div>
+  </div>
+
+  <div class="nav-footer">
+    <a href="https://harikrishnan-06.github.io/loft-insight/insights.html" class="btn-nav">SYSTEM INSIGHTS</a>
+    <a href="#" onclick="location.reload()" class="btn-nav">SECURE LOGOUT</a>
+  </div>
 </div>
 
 <script type="module">
@@ -193,67 +261,56 @@ window.handleLogin = function() {
     const id = document.getElementById('adminID').value;
     const pass = document.getElementById('adminPass').value;
     if(id === "lofthub@login.info" && pass === "Bookingspace") {
-        document.getElementById('loginOverlay').style.display = 'none';
-        document.getElementById('staffContent').style.display = 'block';
-        startStaffSystem();
+        document.getElementById('loginOverlay').style.transition = '0.5s';
+        document.getElementById('loginOverlay').style.opacity = '0';
+        setTimeout(() => {
+            document.getElementById('loginOverlay').style.display = 'none';
+            document.getElementById('staffContent').style.display = 'block';
+            loadData();
+        }, 500);
     } else {
-        document.getElementById('errorMsg').innerText = "❌ Invalid Credentials";
+        document.getElementById('errorMsg').innerText = "AUTHORIZATION FAILED";
     }
 }
 
 document.addEventListener('keypress', (e) => { if(e.key === 'Enter') handleLogin(); });
 
-function startStaffSystem() {
-    const q = query(collection(db, "bookings"), orderBy("createdAt", "desc"));
+function loadData() {
+    onSnapshot(query(collection(db, "bookings"), orderBy("createdAt", "desc")), snap => {
+        const pen = document.getElementById("pen-list"), appr = document.getElementById("app-list"), rej = document.getElementById("rej-list");
+        pen.innerHTML = ""; appr.innerHTML = ""; rej.innerHTML = "";
 
-    onSnapshot(q, snap => {
-      const pen = document.getElementById("list-pending");
-      const appr = document.getElementById("list-approved");
-      const rej = document.getElementById("list-rejected");
-
-      pen.innerHTML = ""; appr.innerHTML = ""; rej.innerHTML = "";
-
-      snap.forEach(docSnap => {
-        const b = docSnap.data();
-        const id = docSnap.id;
-        
-        const cardHtml = `
-          <div class="card">
-            <div class="card-header">
-                <span>${b.name || 'User'}</span>
-                <span class="event-tag">${b.eventType}</span>
-            </div>
-            <div>
-                📅 <b>${b.date}</b><br>
-                📧 ${b.email}<br>
-                📞 ${b.phone}<br>
-                👥 Guests: ${b.guests}
-            </div>
-            <textarea id="note-${id}" rows="2" placeholder="Internal notes...">${b.staffNotes || ""}</textarea>
-            <div class="actions">
-                ${b.status !== 'Approved' ? `<button class="btn-action approve" onclick="updateStatus('${id}','Approved')">Approve</button>` : ''}
-                ${b.status !== 'Rejected' ? `<button class="btn-action reject" onclick="updateStatus('${id}','Rejected')">Reject</button>` : ''}
-                ${b.status !== 'Pending' ? `<button class="btn-action" style="background:#444; color:white;" onclick="updateStatus('${id}','Pending')">Move to Pending</button>` : ''}
-            </div>
-          </div>`;
-
-        if (b.status === "Approved") appr.innerHTML += cardHtml;
-        else if (b.status === "Rejected") rej.innerHTML += cardHtml;
-        else pen.innerHTML += cardHtml;
-      });
+        snap.forEach(s => {
+            const b = s.data(); const id = s.id;
+            const html = `
+                <div class="card">
+                    <div class="card-top">
+                        <h4>${b.name || 'Anonymous'}</h4>
+                        <span style="font-size:10px; border:1px solid rgba(255,255,255,0.2); padding:4px 8px; border-radius:8px;">${b.eventType}</span>
+                    </div>
+                    <div class="info-row"><span>📅</span> ${b.date}</div>
+                    <div class="info-row"><span>👥</span> ${b.guests} Guests</div>
+                    <div class="info-row"><span>📞</span> ${b.phone}</div>
+                    <textarea id="note-${id}" rows="2" placeholder="Internal remarks...">${b.staffNotes || ""}</textarea>
+                    <div class="btn-row">
+                        ${b.status !== 'Approved' ? `<button class="btn-s b-app" onclick="updateSt('${id}','Approved')">Approve</button>` : ''}
+                        ${b.status !== 'Rejected' ? `<button class="btn-s b-rej" onclick="updateSt('${id}','Rejected')">Reject</button>` : ''}
+                        ${b.status !== 'Pending' ? `<button class="btn-s b-pen" onclick="updateSt('${id}','Pending')">Revert</button>` : ''}
+                    </div>
+                </div>`;
+            if(b.status === "Approved") appr.innerHTML += html;
+            else if(b.status === "Rejected") rej.innerHTML += html;
+            else pen.innerHTML += html;
+        });
     });
 }
 
-window.updateStatus = async (id, newStatus) => {
-  const noteContent = document.getElementById(`note-${id}`).value;
-  try {
-    await updateDoc(doc(db, "bookings", id), {
-      status: newStatus,
-      staffNotes: noteContent
-    });
-  } catch (e) { alert("Error updating status"); }
+window.updateSt = async (id, st) => {
+    const n = document.getElementById(`note-${id}`).value;
+    try {
+        await updateDoc(doc(db, "bookings", id), { status: st, staffNotes: n });
+    } catch (e) { console.error(e); }
 };
 </script>
-
 </body>
 </html>
