@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>THE LOFT HUB | Staff Dashboard</title>
+<title>THE LOFT HUB | Staff Management</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
@@ -39,314 +39,92 @@ body {
   backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 40px;
-  width: 100%;
-  max-width: 380px;
-  border-radius: 24px;
-  text-align: center;
-  box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+  padding: 40px; width: 90%; max-width: 380px;
+  border-radius: 24px; text-align: center;
 }
-
-.login-card h1 { letter-spacing: 5px; font-size: 22px; margin-bottom: 30px; text-transform: uppercase; }
 
 .login-card input {
   width: 100%; padding: 15px; margin-bottom: 15px;
   border-radius: 12px; border: none; outline: none;
-  background: rgba(255, 255, 255, 0.9); font-family: inherit;
-  box-sizing: border-box; color: #333;
+  background: white; color: #333; box-sizing: border-box;
 }
 
 .login-card button {
   width: 100%; padding: 15px; border: none; border-radius: 30px;
   background: linear-gradient(135deg, #ff416c, #ff4b2b);
-  color: white; font-weight: 700; cursor: pointer; transition: 0.3s;
-  text-transform: uppercase; letter-spacing: 1px;
+  color: white; font-weight: 700; cursor: pointer; text-transform: uppercase;
 }
 
-/* --- STAFF CONTENT (Hidden by default) --- */
-#staffContent {
-  display: none;
-}
+/* --- STAFF CONTENT --- */
+#staffContent { display: none; }
 
-header {
-  text-align: center;
-  margin-bottom: 40px;
-}
+header { text-align: center; margin-bottom: 30px; }
+header h2 { letter-spacing: 4px; text-transform: uppercase; }
 
-header h2 {
-  letter-spacing: 4px;
-  font-weight: 700;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-}
-
-.stats-bar {
-  font-size: 14px;
-  opacity: 0.8;
-  margin-bottom: 20px;
-}
-
-.container {
-  max-width: 900px;
+/* Grid Layout for Status Columns */
+.status-columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 1400px;
   margin: 0 auto;
 }
 
-/* Glassmorphism Booking Card */
-.card {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 25px;
-  margin-bottom: 20px;
+@media (max-width: 1024px) {
+  .status-columns { grid-template-columns: 1fr; }
+}
+
+.column {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 15px;
   border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-  transition: transform 0.3s ease;
+  min-height: 400px;
 }
 
-.card:hover {
-  transform: scale(1.01);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-  padding-bottom: 15px;
+.column-header {
+  text-align: center;
+  padding: 10px;
   margin-bottom: 15px;
-}
-
-.client-name {
-  font-size: 20px;
   font-weight: 700;
-  color: #fff;
-}
-
-.event-type {
-  background: rgba(255, 255, 255, 0.2);
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 12px;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
+  border-radius: 10px;
 }
 
-.details {
-  font-size: 15px;
-  line-height: 1.6;
+.head-pending { background: rgba(250, 204, 21, 0.2); color: #facc15; }
+.head-approved { background: rgba(0, 255, 204, 0.2); color: #00ffcc; }
+.head-rejected { background: rgba(255, 77, 77, 0.2); color: #ff4d4d; }
+
+/* Booking Card */
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 15px;
   margin-bottom: 15px;
+  border-radius: 15px;
+  font-size: 13px;
 }
 
-.status-badge {
-  font-weight: 700;
-  padding: 2px 8px;
-  border-radius: 4px;
-}
-
-.status-Pending { color: #ffcc00; }
-.status-Approved { color: #00ffcc; }
-.status-Rejected { color: #ff4d4d; }
+.card-header { font-weight: 700; font-size: 16px; margin-bottom: 10px; display: flex; justify-content: space-between; }
+.event-tag { font-size: 10px; opacity: 0.6; text-transform: uppercase; }
 
 textarea {
-  width: 100%;
-  background: rgba(0, 0, 0, 0.3);
-  color: white;
-  margin-top: 15px;
-  padding: 12px;
-  border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.1);
-  font-family: inherit;
-  resize: vertical;
+  width: 100%; background: rgba(0, 0, 0, 0.3); color: white;
+  margin-top: 10px; padding: 8px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);
+  font-family: inherit; font-size: 12px; resize: none;
 }
 
-.actions {
-  display: flex;
-  gap: 10px;
-  margin-top: 15px;
-}
-
+.actions { display: flex; gap: 5px; margin-top: 10px; }
 .btn-action {
-  flex: 1;
-  padding: 12px;
-  border: none;
-  border-radius: 30px;
-  font-weight: 700;
-  text-transform: uppercase;
-  font-size: 12px;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  flex: 1; padding: 8px; border: none; border-radius: 20px;
+  font-weight: 700; font-size: 10px; cursor: pointer; text-transform: uppercase;
 }
 
-.approve { background: #22c55e; color: #052e16; }
-.approve:hover { background: #4ade80; box-shadow: 0 0 15px rgba(34, 197, 94, 0.4); }
+.approve { background: #00ffcc; color: #000; }
+.reject { background: #ff4d4d; color: white; }
 
-.reject { background: #ef4444; color: white; }
-.reject:hover { background: #f87171; box-shadow: 0 0 15px rgba(239, 68, 68, 0.4); }
-
-.timestamp {
-  margin-top: 15px;
-  font-size: 11px;
-  opacity: 0.5;
-  text-align: right;
-}
-
-.nav-bar {
-    text-align: center;
-    margin-top: 30px;
-    padding-bottom: 50px;
-}
-
+.nav-bar { text-align: center; margin-top: 40px; display: flex; justify-content: center; gap: 15px; padding-bottom: 50px;}
 .btn-nav {
-    background: rgba(255,255,255,0.1);
-    color: white;
-    border: 1px solid rgba(255,255,255,0.2);
-    padding: 10px 25px;
-    border-radius: 25px;
-    cursor: pointer;
-    font-size: 12px;
-    text-decoration: none;
-    transition: 0.3s;
-}
-
-.btn-nav:hover { background: rgba(255,255,255,0.2); }
-</style>
-</head>
-
-<body>
-
-<div id="loginOverlay">
-  <div class="login-card">
-    <h1>Staff Portal</h1>
-    <input type="text" id="adminID" placeholder="Staff ID">
-    <input type="password" id="adminPass" placeholder="Password">
-    <button onclick="handleLogin()">Unlock Dashboard</button>
-    <p id="errorMsg" style="color:#ff4d4d; font-size:12px; margin-top:15px;"></p>
-  </div>
-</div>
-
-<div id="staffContent">
-    <header>
-      <h2>THE LOFT HUB</h2>
-      <div class="stats-bar">Staff Booking Management System</div>
-    </header>
-
-    <div class="container" id="list">
-        <div style="text-align:center; opacity:0.5;">Connecting to Secure Vault...</div>
-    </div>
-
-    <div class="nav-bar">
-        <button onclick="location.reload()" class="btn-nav">Secure Logout</button>
-    </div>
-</div>
-
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
-import {
-  getFirestore,
-  collection,
-  onSnapshot,
-  doc,
-  updateDoc,
-  query,
-  orderBy
-} from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyCHzOsZpSWN7fwEXALbPzPsknjROPp5Bf4",
-  authDomain: "the-loft-hub.firebaseapp.com",
-  projectId: "the-loft-hub",
-  storageBucket: "the-loft-hub.firebasestorage.app",
-  messagingSenderId: "720306031954",
-  appId: "1:720306031954:web:1f242a6e1531fe58587e8b"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const list = document.getElementById("list");
-
-// LOGIN LOGIC
-window.handleLogin = function() {
-    const id = document.getElementById('adminID').value;
-    const pass = document.getElementById('adminPass').value;
-    
-    if(id === "lofthub@login.info" && pass === "Bookingspace") {
-        document.getElementById('loginOverlay').style.display = 'none';
-        document.getElementById('staffContent').style.display = 'block';
-        startStaffSystem();
-    } else {
-        document.getElementById('errorMsg').innerText = "❌ Access Denied: Invalid Credentials";
-    }
-}
-
-// Allow Enter key to login
-document.addEventListener('keypress', (e) => { if(e.key === 'Enter') handleLogin(); });
-
-function startStaffSystem() {
-    const q = query(collection(db, "bookings"), orderBy("createdAt", "desc"));
-
-    onSnapshot(q, snap => {
-      if (snap.empty) {
-        list.innerHTML = "<div style='text-align:center;'>No booking requests found.</div>";
-        return;
-      }
-
-      list.innerHTML = "";
-
-      snap.forEach(docSnap => {
-        const b = docSnap.data();
-        const id = docSnap.id;
-
-        const requestedTime = b.createdAt
-          ? b.createdAt.toDate().toLocaleString()
-          : "Just now";
-
-        list.innerHTML += `
-          <div class="card">
-            <div class="card-header">
-                <span class="client-name">${b.name || 'Anonymous'}</span>
-                <span class="event-type">${b.eventType || 'Event'}</span>
-            </div>
-            
-            <div class="details">
-                📧 <b>Email:</b> ${b.email}<br>
-                📞 <b>Phone:</b> ${b.phone}<br>
-                📅 <b>Date:</b> ${b.date} | 👥 <b>Guests:</b> ${b.guests}<br>
-                📝 <b>Notes:</b> ${b.notes || 'None'}<br>
-                📌 <b>Status:</b> <span class="status-badge status-${b.status}">${b.status}</span>
-            </div>
-
-            <textarea id="note-${id}" placeholder="Internal Staff Notes (e.g. Deposit paid, confirmed)">${b.staffNotes || ""}</textarea>
-
-            <div class="actions">
-                <button class="btn-action approve" onclick="updateStatus('${id}','Approved')">Approve</button>
-                <button class="btn-action reject" onclick="updateStatus('${id}','Rejected')">Reject</button>
-            </div>
-
-            <div class="timestamp">
-              Requested On: ${requestedTime}
-            </div>
-          </div>
-        `;
-      });
-    });
-}
-
-window.updateStatus = async (id, newStatus) => {
-  const noteContent = document.getElementById(`note-${id}`).value;
-  try {
-    const docRef = doc(db, "bookings", id);
-    await updateDoc(docRef, {
-      status: newStatus,
-      staffNotes: noteContent
-    });
-  } catch (error) {
-    console.error("Error updating document: ", error);
-    alert("Update failed. Check console.");
-  }
-};
-</script>
-
-</body>
-</html>
+    background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2);
+    padding:
