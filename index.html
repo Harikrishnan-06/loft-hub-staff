@@ -25,70 +25,192 @@ body {
   100% { background-position: 0% 50%; }
 }
 
-/* --- LOGIN OVERLAY (FORCED VISIBLE) --- */
+/* --- LOGIN OVERLAY --- */
 #loginOverlay {
   position: fixed;
   top: 0; left: 0; width: 100%; height: 100%;
-  display: flex !important; /* Forces visibility */
-  flex-direction: column;
-  align-items: center; 
-  justify-content: center;
-  z-index: 9999;
-  background: #0f0c29; /* Solid background until login */
+  display: flex; align-items: center; justify-content: center;
+  z-index: 2000;
+  background: inherit;
 }
 
 .login-card {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   padding: 40px;
-  width: 90%;
+  width: 100%;
   max-width: 380px;
   border-radius: 24px;
   text-align: center;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.5);
 }
+
+.login-card h1 { letter-spacing: 5px; font-size: 22px; margin-bottom: 30px; text-transform: uppercase; }
 
 .login-card input {
   width: 100%; padding: 15px; margin-bottom: 15px;
   border-radius: 12px; border: none; outline: none;
-  background: white; color: #333; box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.9); font-family: inherit;
+  box-sizing: border-box; color: #333;
 }
 
 .login-card button {
   width: 100%; padding: 15px; border: none; border-radius: 30px;
   background: linear-gradient(135deg, #ff416c, #ff4b2b);
-  color: white; font-weight: 700; cursor: pointer; text-transform: uppercase;
+  color: white; font-weight: 700; cursor: pointer; transition: 0.3s;
+  text-transform: uppercase; letter-spacing: 1px;
 }
 
-/* --- STAFF CONTENT (HIDDEN) --- */
+/* --- STAFF CONTENT (Hidden by default) --- */
 #staffContent {
   display: none;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+header h2 {
+  letter-spacing: 4px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.stats-bar {
+  font-size: 14px;
+  opacity: 0.8;
+  margin-bottom: 20px;
+}
+
+.container {
   max-width: 900px;
   margin: 0 auto;
 }
 
+/* Glassmorphism Booking Card */
 .card {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 25px;
   margin-bottom: 20px;
   border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease;
 }
 
-.status-badge { font-weight: 700; padding: 2px 8px; border-radius: 4px; }
+.card:hover {
+  transform: scale(1.01);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+}
+
+.client-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.event-type {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.details {
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.status-badge {
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
 .status-Pending { color: #ffcc00; }
 .status-Approved { color: #00ffcc; }
 .status-Rejected { color: #ff4d4d; }
 
 textarea {
-  width: 100%; background: rgba(0, 0, 0, 0.3); color: white;
-  margin-top: 15px; padding: 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1);
+  width: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  color: white;
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.1);
+  font-family: inherit;
+  resize: vertical;
 }
 
-.actions { display: flex; gap: 10px; margin-top: 15px; }
-.approve { background: #22c55e; color: #052e16; flex: 1; padding: 12px; border-radius: 30px; cursor: pointer; font-weight: 700;}
-.reject { background: #ef4444; color: white; flex: 1; padding: 12px; border-radius: 30px; cursor: pointer; font-weight: 700;}
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.btn-action {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 30px;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.approve { background: #22c55e; color: #052e16; }
+.approve:hover { background: #4ade80; box-shadow: 0 0 15px rgba(34, 197, 94, 0.4); }
+
+.reject { background: #ef4444; color: white; }
+.reject:hover { background: #f87171; box-shadow: 0 0 15px rgba(239, 68, 68, 0.4); }
+
+.timestamp {
+  margin-top: 15px;
+  font-size: 11px;
+  opacity: 0.5;
+  text-align: right;
+}
+
+.nav-bar {
+    text-align: center;
+    margin-top: 30px;
+    padding-bottom: 50px;
+}
+
+.btn-nav {
+    background: rgba(255,255,255,0.1);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 10px 25px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 12px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn-nav:hover { background: rgba(255,255,255,0.2); }
 </style>
 </head>
 
@@ -96,29 +218,40 @@ textarea {
 
 <div id="loginOverlay">
   <div class="login-card">
-    <h1 style="letter-spacing: 3px;">THE LOFT HUB</h1>
-    <p style="opacity: 0.7; font-size: 12px; margin-bottom: 20px;">STAFF PORTAL</p>
+    <h1>Staff Portal</h1>
     <input type="text" id="adminID" placeholder="Staff ID">
     <input type="password" id="adminPass" placeholder="Password">
-    <button onclick="handleLogin()">Unlock Access</button>
+    <button onclick="handleLogin()">Unlock Dashboard</button>
     <p id="errorMsg" style="color:#ff4d4d; font-size:12px; margin-top:15px;"></p>
   </div>
 </div>
 
 <div id="staffContent">
-    <header style="text-align: center; margin-bottom: 40px;">
-      <h2 style="letter-spacing: 4px; text-transform: uppercase;">Staff Dashboard</h2>
-      <button onclick="location.reload()" style="background:none; border:1px solid rgba(255,255,255,0.3); color:white; padding:5px 15px; border-radius:20px; cursor:pointer; font-size:10px;">Logout</button>
+    <header>
+      <h2>THE LOFT HUB</h2>
+      <div class="stats-bar">Staff Booking Management System</div>
     </header>
 
-    <div id="list">
-        <div style="text-align:center; opacity:0.5;">Loading Secure Data...</div>
+    <div class="container" id="list">
+        <div style="text-align:center; opacity:0.5;">Connecting to Secure Vault...</div>
+    </div>
+
+    <div class="nav-bar">
+        <button onclick="location.reload()" class="btn-nav">Secure Logout</button>
     </div>
 </div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
-import { getFirestore, collection, onSnapshot, doc, updateDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+import {
+  getFirestore,
+  collection,
+  onSnapshot,
+  doc,
+  updateDoc,
+  query,
+  orderBy
+} from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCHzOsZpSWN7fwEXALbPzPsknjROPp5Bf4",
@@ -131,52 +264,87 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const list = document.getElementById("list");
 
+// LOGIN LOGIC
 window.handleLogin = function() {
     const id = document.getElementById('adminID').value;
     const pass = document.getElementById('adminPass').value;
     
     if(id === "lofthub@login.info" && pass === "Bookingspace") {
-        document.getElementById('loginOverlay').style.setProperty('display', 'none', 'important');
+        document.getElementById('loginOverlay').style.display = 'none';
         document.getElementById('staffContent').style.display = 'block';
         startStaffSystem();
     } else {
-        document.getElementById('errorMsg').innerText = "❌ Invalid Credentials";
+        document.getElementById('errorMsg').innerText = "❌ Access Denied: Invalid Credentials";
     }
 }
 
+// Allow Enter key to login
+document.addEventListener('keypress', (e) => { if(e.key === 'Enter') handleLogin(); });
+
 function startStaffSystem() {
     const q = query(collection(db, "bookings"), orderBy("createdAt", "desc"));
+
     onSnapshot(q, snap => {
-      const list = document.getElementById("list");
+      if (snap.empty) {
+        list.innerHTML = "<div style='text-align:center;'>No booking requests found.</div>";
+        return;
+      }
+
       list.innerHTML = "";
+
       snap.forEach(docSnap => {
         const b = docSnap.data();
         const id = docSnap.id;
+
+        const requestedTime = b.createdAt
+          ? b.createdAt.toDate().toLocaleString()
+          : "Just now";
+
         list.innerHTML += `
           <div class="card">
-            <div style="display:flex; justify-content:space-between; margin-bottom:15px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:10px;">
-                <span style="font-size:18px; font-weight:700;">${b.name || 'User'}</span>
-                <span style="font-size:12px; background:rgba(255,255,255,0.2); padding:3px 10px; border-radius:15px;">${b.eventType}</span>
+            <div class="card-header">
+                <span class="client-name">${b.name || 'Anonymous'}</span>
+                <span class="event-type">${b.eventType || 'Event'}</span>
             </div>
-            <div style="font-size:14px; line-height:1.6;">
-                📅 <b>Date:</b> ${b.date} | 👥 <b>Guests:</b> ${b.guests}<br>
+            
+            <div class="details">
+                📧 <b>Email:</b> ${b.email}<br>
                 📞 <b>Phone:</b> ${b.phone}<br>
+                📅 <b>Date:</b> ${b.date} | 👥 <b>Guests:</b> ${b.guests}<br>
+                📝 <b>Notes:</b> ${b.notes || 'None'}<br>
                 📌 <b>Status:</b> <span class="status-badge status-${b.status}">${b.status}</span>
             </div>
-            <textarea id="note-${id}" placeholder="Staff Notes...">${b.staffNotes || ""}</textarea>
+
+            <textarea id="note-${id}" placeholder="Internal Staff Notes (e.g. Deposit paid, confirmed)">${b.staffNotes || ""}</textarea>
+
             <div class="actions">
-                <button class="approve" onclick="updateStatus('${id}','Approved')">Approve</button>
-                <button class="reject" onclick="updateStatus('${id}','Rejected')">Reject</button>
+                <button class="btn-action approve" onclick="updateStatus('${id}','Approved')">Approve</button>
+                <button class="btn-action reject" onclick="updateStatus('${id}','Rejected')">Reject</button>
             </div>
-          </div>`;
+
+            <div class="timestamp">
+              Requested On: ${requestedTime}
+            </div>
+          </div>
+        `;
       });
     });
 }
 
 window.updateStatus = async (id, newStatus) => {
   const noteContent = document.getElementById(`note-${id}`).value;
-  await updateDoc(doc(db, "bookings", id), { status: newStatus, staffNotes: noteContent });
+  try {
+    const docRef = doc(db, "bookings", id);
+    await updateDoc(docRef, {
+      status: newStatus,
+      staffNotes: noteContent
+    });
+  } catch (error) {
+    console.error("Error updating document: ", error);
+    alert("Update failed. Check console.");
+  }
 };
 </script>
 
